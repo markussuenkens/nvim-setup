@@ -1,31 +1,58 @@
-local keymap = vim.keymap
+-- local keymap = vim.keymap
 
 -- keymap.set({'n', 'x'}, 'gy', '"+y')
 -- keymap.set({'n', 'x'}, 'gp', '"+p')
 -- keymap.set({'n', 'x'}, 'x', '"_x')
 -- keymap.set({'n', 'x'}, 'X', '"_d')
--- keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>')
--- keymap.set('n', '<leader>q', vim.cmd.Ex)
 
 local wk = require("which-key")
 
 wk.register({
-	q = { "<cmd>Ex<cr>", "Explore Directory Of Current File" },
-	a = { "<cmd>keepjumps normal! ggVG<cr>", "Mark All" },
+	-- q = { "<cmd>Ex<cr>", "Explore directory of current file" },
+	q = { "<cmd>NvimTreeToggle<cr>", "Toggle NvimTree" },
+	a = { "<cmd>keepjumps normal! ggVG<cr>", "Mark all" },
 	f = {
 		name = "file",
-		f = { "<cmd>Telescope find_files<cr>", "Find File" },
-		r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+		f = { "<cmd>Telescope find_files<cr>", "Find file" },
+		r = { "<cmd>Telescope oldfiles<cr>", "Open recent file" },
+		g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
 	},
 	h = {
 		name = "harpoon",
-		h = { require("harpoon.ui").toggle_quick_menu, "Toggle Quick Menu" },
-		a = { require("harpoon.mark").add_file, "Add File To Quick Menu" },
-		k = { require("harpoon.ui").nav_prev, "Previous File"},
-		j = { require("harpoon.ui").nav_next, "Next File"},
-		["1"] = { function() require("harpoon.ui").nav_file(1) end, "Open First File in Quick Menu"},
-		["2"] = { function() require("harpoon.ui").nav_file(2) end, "Open Second File in Quick Menu"},
-		["3"] = { function() require("harpoon.ui").nav_file(3) end, "Open Third File in Quick Menu"},
-		["4"] = { function() require("harpoon.ui").nav_file(4) end, "Open Fourth File in Quick Menu"},
-	}
+		h = { require("harpoon.ui").toggle_quick_menu, "Toggle quick menu" },
+		a = { require("harpoon.mark").add_file, "Add file to quick menu" },
+		k = { require("harpoon.ui").nav_prev, "Previous file" },
+		j = { require("harpoon.ui").nav_next, "Next file" },
+		["1"] = {
+			function()
+				require("harpoon.ui").nav_file(1)
+			end,
+			"Open first file in quick menu",
+		},
+		["2"] = {
+			function()
+				require("harpoon.ui").nav_file(2)
+			end,
+			"Open second file in quick menu",
+		},
+		["3"] = {
+			function()
+				require("harpoon.ui").nav_file(3)
+			end,
+			"Open third file in quick menu",
+		},
+		["4"] = {
+			function()
+				require("harpoon.ui").nav_file(4)
+			end,
+			"Open fourth file in quick menu",
+		},
+	},
+	l = {
+		name = "lsp",
+		l = { vim.lsp.buf.hover, "Hover LSP info" },
+		j = { vim.lsp.buf.definition, "Jump to definition" },
+		a = { require("actions-preview").code_actions, "View code actions" },
+		f = { vim.lsp.buf.format, "Automatic code formatting" },
+	},
 }, { prefix = "<leader>" })

@@ -6,6 +6,8 @@ opt.relativenumber = true
 opt.mouse = "a"
 -- opt.guicursor = "" -- fat cursor in insert mode
 
+vim.opt.termguicolors = true
+
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = false
@@ -19,7 +21,7 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.smarttab = true
-opt.expandtab = false 
+opt.expandtab = false
 
 opt.swapfile = false
 opt.backup = false

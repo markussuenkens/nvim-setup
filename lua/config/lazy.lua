@@ -21,13 +21,13 @@ require("lazy").setup({
 	},
 	install = {
 		-- try to load one of these colorschemes when starting an installation during startup
-		-- colorscheme = { "tokyonight", "habamax" }
+		colorscheme = { "tokyonight" }
 	},
 	checker = {
 		-- automatically check for plugin updates
 		enabled = true,
 		notify = true,
-	}, 
+	},
 	change_detection = {
 		-- automatically check for config file changes and reload the ui
 		enabled = true,
@@ -49,11 +49,3 @@ require("lazy").setup({
 		},
 	},
 })
-
-require("telescope").load_extension('harpoon')
-
-require("lualine").setup {
-	options = {
-		theme = "nightfly",
-	}
-}

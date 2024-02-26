@@ -5,13 +5,6 @@ return {
 		priority = 1000, -- make sure to load this before all the other start plugins
 	},
 	{
-		"ellisonleao/gruvbox.nvim",
-		lazy = false,
-		priority = 1000,
-		-- config = true,
-		opts = {},
-	},
-	{
 		"EdenEast/nightfox.nvim",
 		lazy = false,
 		priority = 1000,
