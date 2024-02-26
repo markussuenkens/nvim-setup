@@ -51,8 +51,10 @@ wk.register({
 	l = {
 		name = "lsp",
 		l = { vim.lsp.buf.hover, "Hover LSP info" },
-		j = { vim.lsp.buf.definition, "Jump to definition" },
+		d = { vim.lsp.buf.definition, "Jump to definition" },
+		t = { vim.lsp.buf.type_definition, "Jump to type definition" },
 		a = { require("actions-preview").code_actions, "View code actions" },
 		f = { vim.lsp.buf.format, "Automatic code formatting" },
+		r = { vim.lsp.buf.references, "View references" },
 	},
 }, { prefix = "<leader>" })
