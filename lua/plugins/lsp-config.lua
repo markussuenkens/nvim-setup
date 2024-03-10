@@ -1,6 +1,33 @@
+-- lsp
+local ensure_installed_lsp = {
+	"pyright",
+	"jedi_language_server",
+	"lua_ls",
+	"clangd",
+	"ltex",
+	"marksman",
+}
+
+-- linters, formatters, debuggers
+local ensure_installed_lfd = {
+	-- general
+	"codespell",
+	"cspell",
+	-- python
+	"black",
+	"debugpy",
+	"isort",
+	"mypy",
+	"pylint",
+	-- lua
+	"shfmt",
+	"stylua",
+}
+
 return {
 	{
 		"williamboman/mason.nvim",
+		opts = {},
 		config = function()
 			require("mason").setup({
 				ui = {
@@ -57,13 +84,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					"clangd",
-					"pylsp",
-					"ltex",
-					"marksman",
-				},
+				ensure_installed = ensure_installed_lsp,
 				automatic_installation = true,
 			})
 		end,
@@ -72,25 +93,59 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({})
-			lspconfig.clangd.setup({})
-			lspconfig.ltex.setup({})
-			lspconfig.pylsp.setup({})
+
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+			lspconfig.pyright.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.jedi_language_server.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.ltex.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.marksman.setup({
+				capabilities = capabilities,
+			})
+		end,
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		config = function()
+			local mtinstaller = require("mason-tool-installer")
+			mtinstaller.setup({
+				ensure_installed = ensure_installed_lfd,
+				auto_update = true,
+				run_on_start = true,
+			})
 		end,
 	},
 	{
 		"nvimtools/none-ls.nvim",
+		dependencies = {
+			"nvimtools/none-ls-extras.nvim",
+		},
 		config = function()
 			local null_ls = require("null-ls")
 			null_ls.setup({
 				sources = {
+					-- general
+					null_ls.builtins.completion.spell,
+					-- null_ls.builtins.formatting.prettier
+					-- lua
 					null_ls.builtins.formatting.stylua,
+					-- python
 					null_ls.builtins.formatting.black,
 					null_ls.builtins.formatting.isort,
-					-- null_ls.biltins.diagnostics.rubocop,
-					-- null_ls.biltins.formatting.rubocop,
-					-- null_ls.builtins.diagnostics.eslint,
-					-- null_ls.builtins.completion.spell,
+					null_ls.builtins.diagnostics.mypy,
+					null_ls.builtins.diagnostics.pylint,
 				},
 			})
 		end,
